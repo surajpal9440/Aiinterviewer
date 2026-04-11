@@ -44,7 +44,7 @@ Browser (HTML/CSS/JS)          Spring Boot (Java)          MongoDB
 - **Auth:** JWT + BCrypt
 - **PDF:** jsPDF
 - **Build:** Maven
-- **Container:** Docker (optional)
+- **Container:** Docker 
 
 ---
 
