@@ -124,11 +124,6 @@ mvn test
 | POST | `/api/proctor/event` | JWT | Log proctor event |
 | GET | `/api/report/{sessionId}` | JWT | Get report |
 
----
-
-## 👨‍💻 Author
-
-**Suraj Kumar** — Final Year Project, 2026
 
 ---
 
