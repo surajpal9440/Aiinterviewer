@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Interview Simulator - Practice interviews with AI-powered feedback and proctoring">
+    <title>AI Interview Simulator — Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="card auth-card">
+            <!-- Login Form -->
+            <div id="loginSection">
+                <div class="auth-header">
+                    <div class="logo">🤖</div>
+                    <h1>AI Interview Simulator</h1>
+                    <p>Practice interviews with AI-powered proctoring</p>
+                </div>
+                <form class="auth-form" id="loginForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-full" id="loginBtn">
+                        Sign In
+                    </button>
+                    <div id="loginError" class="hidden" style="color: var(--accent-pink); text-align: center; font-size: 0.9rem;"></div>
+                </form>
+                <div class="auth-toggle">
+                    Don't have an account? <a onclick="showRegister()">Create one</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerSection" class="hidden">
+                <div class="auth-header">
+                    <div class="logo">🤖</div>
+                    <h1>Create Account</h1>
+                    <p>Join and start practicing today</p>
+                </div>
+                <form class="auth-form" id="registerForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="regFullName">Full Name</label>
+                        <input type="text" id="regFullName" class="form-input" placeholder="Suraj Kumar" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regUsername">Username</label>
+                        <input type="text" id="regUsername" class="form-input" placeholder="suraj123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email</label>
+                        <input type="email" id="regEmail" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" class="form-input" placeholder="Min 6 characters" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-full" id="registerBtn">
+                        Create Account
+                    </button>
+                    <div id="registerError" class="hidden" style="color: var(--accent-pink); text-align: center; font-size: 0.9rem;"></div>
+                </form>
+                <div class="auth-toggle">
+                    Already have an account? <a onclick="showLogin()">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

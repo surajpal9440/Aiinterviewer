@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Select your interview role and start practicing">
+    <title>Dashboard — AI Interview Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-icon">🤖</div>
+            AI Interview Simulator
+        </div>
+        <div class="navbar-user">
+            <span class="user-name" id="userName">Welcome!</span>
+            <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>Choose Your <span>Interview Role</span></h1>
+            <p>Select a role to begin your AI-powered mock interview with real-time proctoring</p>
+        </div>
+
+        <!-- Role Selection Cards -->
+        <div class="roles-grid" id="rolesGrid">
+            <div class="card role-card" data-role="JAVA_DEVELOPER" onclick="selectRole(this)">
+                <span class="role-icon">☕</span>
+                <h3>Java Developer</h3>
+                <p>OOP, Collections, Spring Boot, Multithreading, Design Patterns</p>
+                <span class="role-badge">15+ Questions</span>
+            </div>
+
+            <div class="card role-card" data-role="FRONTEND_DEVELOPER" onclick="selectRole(this)">
+                <span class="role-icon">🎨</span>
+                <h3>Frontend Developer</h3>
+                <p>HTML, CSS, JavaScript, React, DOM, Responsive Design</p>
+                <span class="role-badge">12+ Questions</span>
+            </div>
+
+            <div class="card role-card" data-role="BACKEND_DEVELOPER" onclick="selectRole(this)">
+                <span class="role-icon">⚙️</span>
+                <h3>Backend Developer</h3>
+                <p>REST APIs, Databases, Authentication, System Design</p>
+                <span class="role-badge">12+ Questions</span>
+            </div>
+
+            <div class="card role-card" data-role="MERN_STACK_DEVELOPER" onclick="selectRole(this)">
+                <span class="role-icon">🚀</span>
+                <h3>MERN Stack Developer</h3>
+                <p>MongoDB, Express, React, Node.js, Full Stack</p>
+                <span class="role-badge">12+ Questions</span>
+            </div>
+
+            <div class="card role-card" data-role="HR" onclick="selectRole(this)">
+                <span class="role-icon">💼</span>
+                <h3>HR / Behavioral</h3>
+                <p>Tell me about yourself, Strengths, Conflict, Leadership</p>
+                <span class="role-badge">10+ Questions</span>
+            </div>
+        </div>
+
+        <!-- Start Button -->
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg" id="startBtn" onclick="startInterview()" disabled>
+                🎯 Select a Role to Begin
+            </button>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="scores-grid" style="margin-top: 48px;">
+            <div class="card text-center" style="padding: 24px;">
+                <div style="font-size: 2rem; margin-bottom: 8px;">📷</div>
+                <h3 style="font-size: 1rem; margin-bottom: 4px;">Camera Required</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Webcam monitors for proctoring</p>
+            </div>
+            <div class="card text-center" style="padding: 24px;">
+                <div style="font-size: 2rem; margin-bottom: 8px;">🎤</div>
+                <h3 style="font-size: 1rem; margin-bottom: 4px;">Microphone Required</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Answer using your voice</p>
+            </div>
+            <div class="card text-center" style="padding: 24px;">
+                <div style="font-size: 2rem; margin-bottom: 8px;">🧠</div>
+                <h3 style="font-size: 1rem; margin-bottom: 4px;">10 Questions</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Adaptive difficulty level</p>
+            </div>
+            <div class="card text-center" style="padding: 24px;">
+                <div style="font-size: 2rem; margin-bottom: 8px;">📊</div>
+                <h3 style="font-size: 1rem; margin-bottom: 4px;">Detailed Report</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem;">Export as PDF</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Check auth
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'index.html';
+        }
+        // Show user name
+        const fullName = localStorage.getItem('fullName') || 'User';
+        document.getElementById('userName').textContent = `Welcome, ${fullName}!`;
+
+        let selectedRole = null;
+
+        function selectRole(card) {
+            // Remove selection from all
+            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+            // Select this one
+            card.classList.add('selected');
+            selectedRole = card.dataset.role;
+
+            const btn = document.getElementById('startBtn');
+            btn.disabled = false;
+            btn.innerHTML = `🎯 Start ${card.querySelector('h3').textContent} Interview`;
+        }
+
+        async function startInterview() {
+            if (!selectedRole) return;
+
+            const btn = document.getElementById('startBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;"></div> Starting...';
+
+            try {
+                const data = await apiPost('/api/interview/start', { roleCategory: selectedRole });
+                // Store session info
+                localStorage.setItem('sessionId', data.sessionId);
+                localStorage.setItem('currentRole', selectedRole);
+                localStorage.setItem('totalQuestions', data.totalQuestions);
+                localStorage.setItem('currentQuestion', JSON.stringify(data.question));
+                // Navigate to interview
+                window.location.href = 'interview.html';
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerHTML = '🎯 Start Interview';
+                alert('Error starting interview: ' + err.message);
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

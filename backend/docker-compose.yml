@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: interview-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    container_name: interview-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/ai_interview_db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:

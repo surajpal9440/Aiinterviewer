@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interview Report - Detailed performance analysis">
+    <title>Report — AI Interview Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-icon">🤖</div>
+            AI Interview Simulator
+        </div>
+        <div class="navbar-user">
+            <button class="btn btn-outline btn-sm" onclick="window.location.href='dashboard.html'">← Dashboard</button>
+            <button class="btn btn-primary btn-sm" onclick="exportPDF()">📄 Export PDF</button>
+        </div>
+    </nav>
+
+    <div class="report-container" id="reportContent">
+        <!-- Loading -->
+        <div id="reportLoading" class="text-center" style="padding: 80px 0;">
+            <div class="spinner" style="margin: 0 auto 16px;"></div>
+            <p style="color: var(--text-secondary);">Generating your report...</p>
+        </div>
+
+        <!-- Report Content (hidden until loaded) -->
+        <div id="reportData" class="hidden">
+            <!-- Header -->
+            <div class="report-header">
+                <h1>📊 Interview Report</h1>
+                <p style="color: var(--text-secondary);" id="reportRole">Java Developer Interview</p>
+                <div class="overall-score" id="overallScore">73</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Overall Score</p>
+            </div>
+
+            <!-- Score Cards -->
+            <div class="scores-grid">
+                <div class="card score-card">
+                    <div class="score-label">Technical</div>
+                    <div class="score-value" id="techScore" style="color: var(--accent-blue);">0</div>
+                    <div class="score-bar">
+                        <div class="score-bar-fill" id="techBar" style="width: 0%; background: var(--gradient-primary);"></div>
+                    </div>
+                </div>
+                <div class="card score-card">
+                    <div class="score-label">Communication</div>
+                    <div class="score-value" id="commScore" style="color: var(--accent-purple);">0</div>
+                    <div class="score-bar">
+                        <div class="score-bar-fill" id="commBar" style="width: 0%; background: linear-gradient(90deg, #8b5cf6, #a78bfa);"></div>
+                    </div>
+                </div>
+                <div class="card score-card">
+                    <div class="score-label">Confidence</div>
+                    <div class="score-value" id="confScore" style="color: var(--accent-cyan);">0</div>
+                    <div class="score-bar">
+                        <div class="score-bar-fill" id="confBar" style="width: 0%; background: var(--gradient-success);"></div>
+                    </div>
+                </div>
+                <div class="card score-card">
+                    <div class="score-label">Integrity</div>
+                    <div class="score-value" id="intScore" style="color: var(--accent-yellow);">0</div>
+                    <div class="score-bar">
+                        <div class="score-bar-fill" id="intBar" style="width: 0%; background: var(--gradient-warm);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Stats -->
+            <div class="card" style="padding: 24px; margin-bottom: 24px;">
+                <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: 16px;">
+                    <div class="text-center" style="flex: 1;">
+                        <div style="font-size: 1.5rem; font-weight: 700;" id="totalQs">10</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Total Questions</div>
+                    </div>
+                    <div class="text-center" style="flex: 1;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);" id="correctAns">7</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Correct Answers</div>
+                    </div>
+                    <div class="text-center" style="flex: 1;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-yellow);" id="duration">25 min</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Duration</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strengths & Weaknesses -->
+            <div class="sw-section">
+                <div class="card sw-card">
+                    <h3>💪 Strengths</h3>
+                    <ul class="sw-list" id="strengthsList"></ul>
+                </div>
+                <div class="card sw-card">
+                    <h3>📈 Areas to Improve</h3>
+                    <ul class="sw-list" id="weaknessesList"></ul>
+                </div>
+            </div>
+
+            <!-- Proctoring Summary -->
+            <div class="card proctor-summary">
+                <h3 style="margin-bottom: 4px;">🔍 Proctoring Summary</h3>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 12px;">Activity detected during the interview</p>
+                <div class="proctor-grid" id="proctorGrid"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="text-center" style="margin-top: 32px;">
+                <button class="btn btn-primary btn-lg" onclick="exportPDF()" style="margin-right: 12px;">📄 Download PDF Report</button>
+                <button class="btn btn-outline btn-lg" onclick="window.location.href='dashboard.html'">🔁 Take Another Interview</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/report.js"></script>
+</body>
+</html>

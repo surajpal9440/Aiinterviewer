@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Interview Session - Answer questions with voice and camera proctoring">
+    <title>Interview — AI Interview Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- face-api.js for face detection -->
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-icon">🤖</div>
+            <span id="interviewRole">Interview</span>
+        </div>
+        <div class="navbar-user">
+            <div class="timer-display" id="timerDisplay">⏱️ <span id="timerValue">02:00</span></div>
+            <button class="btn btn-danger btn-sm" onclick="endInterviewEarly()">End Interview</button>
+        </div>
+    </nav>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p id="loadingText">Loading interview...</p>
+    </div>
+
+    <div class="interview-container">
+        <!-- Main Content -->
+        <div class="interview-main">
+            <!-- Progress -->
+            <div class="card" style="padding: 16px 24px;">
+                <div class="flex justify-between items-center">
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);">
+                        Question <strong id="questionNum">1</strong> of <strong id="totalQuestions">10</strong>
+                    </span>
+                    <span class="difficulty-badge" id="difficultyBadge">EASY</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar" style="width: 10%"></div>
+                </div>
+            </div>
+
+            <!-- Question -->
+            <div class="card question-card" id="questionCard">
+                <div class="question-header">
+                    <span class="question-number" id="questionLabel">QUESTION 1</span>
+                    <button class="btn btn-outline btn-sm" onclick="speakQuestion()">🔊 Read Aloud</button>
+                </div>
+                <div class="question-text" id="questionText">Loading question...</div>
+            </div>
+
+            <!-- Answer Area -->
+            <div class="card answer-area" id="answerArea">
+                <div class="flex justify-between items-center" style="margin-bottom: 12px;">
+                    <label style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">Your Answer</label>
+                    <div id="recordingStatus" class="hidden recording-indicator">
+                        <span class="dot"></span> Recording...
+                    </div>
+                </div>
+                <textarea class="answer-textarea" id="answerInput" placeholder="Type your answer here or use the microphone button to speak..."></textarea>
+                <div class="answer-controls">
+                    <div class="voice-controls">
+                        <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Start/Stop voice recording">
+                            🎤
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="clearAnswer()">Clear</button>
+                    </div>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()">
+                        Submit Answer →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feedback (shown after submission) -->
+            <div class="card feedback-card hidden" id="feedbackCard">
+                <div class="feedback-score">
+                    <span class="score" id="feedbackScore">0/10</span>
+                    <span id="feedbackText" style="color: var(--text-secondary);"></span>
+                </div>
+                <div id="feedbackMessage" style="margin-bottom: 12px;"></div>
+                <div class="keywords-section" id="keywordsSection"></div>
+                <div style="margin-top: 16px;">
+                    <button class="btn btn-success" id="nextBtn" onclick="loadNextQuestion()">
+                        Next Question →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="interview-sidebar">
+            <!-- Camera -->
+            <div class="camera-section" id="cameraSection">
+                <div class="camera-status">
+                    <span class="status-dot" id="cameraStatusDot"></span>
+                    <span id="cameraStatusText">Camera loading...</span>
+                </div>
+                <video id="videoFeed" autoplay muted playsinline></video>
+                <canvas id="faceCanvas"></canvas>
+            </div>
+
+            <!-- Integrity Score -->
+            <div class="card integrity-card">
+                <div class="integrity-label">Integrity Score</div>
+                <div class="integrity-score high" id="integrityScore">100</div>
+                <div class="progress-bar-container">
+                    <div class="score-bar-fill" id="integrityBar" style="width: 100%; background: var(--gradient-success);"></div>
+                </div>
+                <div style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                    Warnings: <span id="warningCount">0</span>
+                </div>
+            </div>
+
+            <!-- Warnings Log -->
+            <div class="card warnings-list" id="warningsCard">
+                <h4>⚠️ Activity Log</h4>
+                <div id="warningsList">
+                    <div style="color: var(--text-muted); font-size: 0.82rem;">No warnings yet — keep it up!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/speech.js"></script>
+    <script src="js/proctoring.js"></script>
+    <script src="js/interview.js"></script>
+</body>
+</html>

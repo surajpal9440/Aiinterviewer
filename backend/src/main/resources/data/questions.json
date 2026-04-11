@@ -1,0 +1,542 @@
+[
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is Java and why is it platform independent?",
+    "expectedKeywords": ["java", "platform independent", "jvm", "bytecode", "write once run anywhere"],
+    "idealAnswer": "Java is an object-oriented programming language. It is platform independent because Java code is compiled into bytecode which runs on the JVM (Java Virtual Machine). This follows the principle of Write Once, Run Anywhere.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What are the main features of Object-Oriented Programming?",
+    "expectedKeywords": ["encapsulation", "inheritance", "polymorphism", "abstraction", "oop", "object"],
+    "idealAnswer": "The four main pillars of OOP are: Encapsulation (bundling data and methods), Inheritance (child class inherits parent), Polymorphism (many forms - overloading and overriding), and Abstraction (hiding complexity, showing only essential features).",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the difference between JDK, JRE, and JVM?",
+    "expectedKeywords": ["jdk", "jre", "jvm", "development kit", "runtime", "virtual machine", "compiler"],
+    "idealAnswer": "JDK (Java Development Kit) includes tools for developing Java programs including compiler. JRE (Java Runtime Environment) provides libraries and JVM to run Java programs. JVM (Java Virtual Machine) executes Java bytecode on any platform.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the difference between == and .equals() in Java?",
+    "expectedKeywords": ["reference", "value", "content", "object", "compare", "memory", "equals"],
+    "idealAnswer": "== compares references (memory addresses) to check if two variables point to the same object. .equals() compares the actual content/values of objects. For strings, == checks if they are the same object, while .equals() checks if the text is the same.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "Explain polymorphism in Java with examples.",
+    "expectedKeywords": ["polymorphism", "overriding", "overloading", "runtime", "compile time", "method", "dynamic dispatch"],
+    "idealAnswer": "Polymorphism means many forms. Compile-time polymorphism is achieved through method overloading (same name, different parameters). Runtime polymorphism is achieved through method overriding (child class overrides parent method). At runtime, JVM uses dynamic method dispatch to call the correct method.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What are the differences between ArrayList and LinkedList?",
+    "expectedKeywords": ["arraylist", "linkedlist", "random access", "insertion", "deletion", "index", "node", "performance"],
+    "idealAnswer": "ArrayList uses a dynamic array internally, providing O(1) random access but O(n) insertion/deletion. LinkedList uses doubly-linked nodes, providing O(1) insertion/deletion at known positions but O(n) for random access. ArrayList is better for read-heavy operations, LinkedList for frequent insertions/deletions.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is exception handling in Java? Explain try-catch-finally.",
+    "expectedKeywords": ["exception", "try", "catch", "finally", "throw", "throws", "checked", "unchecked", "runtime"],
+    "idealAnswer": "Exception handling manages runtime errors. The try block contains risky code, catch handles specific exceptions, and finally always executes for cleanup. Checked exceptions must be handled at compile time. Unchecked (Runtime) exceptions occur at runtime. throw creates an exception, throws declares it in method signature.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is the difference between abstract class and interface in Java?",
+    "expectedKeywords": ["abstract", "interface", "implements", "extends", "multiple inheritance", "method", "constructor", "default"],
+    "idealAnswer": "Abstract classes can have both abstract and concrete methods, constructors, and state. Interfaces define contracts with abstract methods (and default methods since Java 8). A class can implement multiple interfaces but extend only one abstract class. Use interfaces for contracts, abstract classes for shared code.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "Explain the Java Collections Framework. What are the main interfaces?",
+    "expectedKeywords": ["collection", "list", "set", "map", "queue", "arraylist", "hashmap", "hashset", "iterator"],
+    "idealAnswer": "The Collections Framework provides data structure implementations. Main interfaces: List (ordered, allows duplicates - ArrayList, LinkedList), Set (no duplicates - HashSet, TreeSet), Map (key-value pairs - HashMap, TreeMap), Queue (FIFO - PriorityQueue, LinkedList). Iterator provides a way to traverse collections.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "What is multithreading in Java? Explain thread lifecycle and synchronization.",
+    "expectedKeywords": ["thread", "runnable", "synchronized", "lifecycle", "new", "running", "blocked", "waiting", "dead", "concurrent", "lock"],
+    "idealAnswer": "Multithreading allows concurrent execution of tasks. Thread lifecycle: New → Runnable → Running → Blocked/Waiting → Dead. Create threads by extending Thread class or implementing Runnable interface. Synchronization prevents race conditions using synchronized keyword or locks. It ensures only one thread accesses shared resources at a time.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain the SOLID principles with Java examples.",
+    "expectedKeywords": ["single responsibility", "open closed", "liskov", "interface segregation", "dependency inversion", "solid", "principle"],
+    "idealAnswer": "S-Single Responsibility: each class has one job. O-Open/Closed: open for extension, closed for modification. L-Liskov Substitution: subtypes must be substitutable for base types. I-Interface Segregation: prefer small specific interfaces over large ones. D-Dependency Inversion: depend on abstractions, not concrete implementations.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "What are design patterns? Explain Singleton, Factory, and Observer patterns.",
+    "expectedKeywords": ["design pattern", "singleton", "factory", "observer", "creational", "behavioral", "instance", "encapsulate"],
+    "idealAnswer": "Design patterns are reusable solutions to common software problems. Singleton ensures only one instance exists (e.g., database connection). Factory encapsulates object creation logic, letting subclasses decide which class to instantiate. Observer defines a one-to-many dependency where observers are notified of state changes in the subject.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "What is Spring Boot? Explain dependency injection and the MVC pattern.",
+    "expectedKeywords": ["spring boot", "dependency injection", "ioc", "mvc", "controller", "service", "repository", "autowired", "bean"],
+    "idealAnswer": "Spring Boot simplifies Java application development with auto-configuration and embedded servers. Dependency Injection (DI) is an IoC principle where objects receive dependencies from outside rather than creating them. MVC separates concerns: Model (data), View (UI), Controller (handles requests). Spring uses @Autowired for DI and @Controller, @Service, @Repository annotations.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What are access modifiers in Java?",
+    "expectedKeywords": ["public", "private", "protected", "default", "access", "modifier", "class", "package"],
+    "idealAnswer": "Java has four access modifiers: public (accessible everywhere), private (only within the class), protected (within package and subclasses), and default/package-private (within the same package only). They control the visibility and accessibility of classes, methods, and variables.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is the difference between HashMap and HashTable in Java?",
+    "expectedKeywords": ["hashmap", "hashtable", "synchronized", "null", "thread safe", "performance", "legacy"],
+    "idealAnswer": "HashMap is non-synchronized (not thread-safe) and allows one null key and multiple null values. HashTable is synchronized (thread-safe) but slower due to locking. HashMap is preferred in single-threaded scenarios for better performance. HashTable is a legacy class; ConcurrentHashMap is the modern thread-safe alternative.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the difference between HTML, CSS, and JavaScript?",
+    "expectedKeywords": ["html", "structure", "css", "styling", "javascript", "behavior", "interaction", "markup", "language"],
+    "idealAnswer": "HTML (HyperText Markup Language) defines the structure and content of web pages. CSS (Cascading Style Sheets) handles visual styling - colors, layouts, fonts. JavaScript adds interactivity and dynamic behavior - event handling, DOM manipulation, API calls. Together they form the foundation of web development.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the DOM and how does JavaScript interact with it?",
+    "expectedKeywords": ["dom", "document object model", "tree", "node", "element", "manipulate", "getelementbyid", "queryselector"],
+    "idealAnswer": "The DOM (Document Object Model) is a tree-like representation of an HTML document. JavaScript can access and manipulate DOM elements using methods like getElementById, querySelector, createElement. Changes to the DOM are immediately reflected in the browser, allowing dynamic updates without page reload.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is responsive design and how do you implement it?",
+    "expectedKeywords": ["responsive", "media query", "viewport", "flexbox", "grid", "mobile", "breakpoint", "adapt"],
+    "idealAnswer": "Responsive design ensures websites work well on all screen sizes. It is implemented using: CSS media queries for different breakpoints, viewport meta tag, flexible layouts with Flexbox and CSS Grid, relative units (%, em, rem, vw, vh), and responsive images. Mobile-first approach is a common strategy.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "Explain CSS Flexbox and when would you use it over CSS Grid?",
+    "expectedKeywords": ["flexbox", "grid", "one-dimensional", "two-dimensional", "axis", "justify", "align", "container", "item"],
+    "idealAnswer": "Flexbox is a one-dimensional layout system for arranging items along a single axis (row or column). CSS Grid is two-dimensional for rows AND columns simultaneously. Use Flexbox for navigation bars, centering content, and simple linear layouts. Use Grid for complex page layouts with both rows and columns.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What are closures in JavaScript? Give an example.",
+    "expectedKeywords": ["closure", "function", "scope", "variable", "inner", "outer", "lexical", "access", "remember"],
+    "idealAnswer": "A closure is a function that remembers and accesses variables from its outer (lexical) scope even after the outer function has finished executing. For example, a counter function that returns an inner function which increments and returns a private variable. Closures enable data privacy and function factories.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "Explain the difference between var, let, and const in JavaScript.",
+    "expectedKeywords": ["var", "let", "const", "scope", "hoisting", "block", "function", "reassign", "declaration"],
+    "idealAnswer": "var is function-scoped, hoisted, and can be redeclared. let is block-scoped, not hoisted to usable state, cannot be redeclared but can be reassigned. const is block-scoped, cannot be reassigned or redeclared (but object properties can be modified). let and const are preferred in modern JavaScript.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "What is the event loop in JavaScript? Explain how asynchronous code works.",
+    "expectedKeywords": ["event loop", "call stack", "callback queue", "microtask", "promise", "async", "await", "non-blocking", "single thread"],
+    "idealAnswer": "JavaScript is single-threaded but handles async operations via the event loop. The call stack executes synchronous code. Async operations (setTimeout, fetch) go to Web APIs, and their callbacks enter the callback queue. The event loop checks if the call stack is empty and moves callbacks from the queue. Promises use the microtask queue which has higher priority.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain React's Virtual DOM and reconciliation process.",
+    "expectedKeywords": ["virtual dom", "reconciliation", "diffing", "render", "state", "component", "performance", "real dom", "update"],
+    "idealAnswer": "React maintains a Virtual DOM - a lightweight JavaScript representation of the real DOM. When state changes, React creates a new Virtual DOM tree, compares (diffs) it with the previous one, and calculates the minimum changes needed. Only those specific changes are applied to the real DOM (reconciliation), making updates efficient.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the box model in CSS?",
+    "expectedKeywords": ["box model", "content", "padding", "border", "margin", "width", "height", "box-sizing"],
+    "idealAnswer": "The CSS box model describes how every element is rendered as a box with four layers: Content (the actual content), Padding (space between content and border), Border (the border around padding), and Margin (space outside the border). box-sizing: border-box includes padding and border in the element's total width/height.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is a REST API and what are HTTP methods?",
+    "expectedKeywords": ["rest", "api", "http", "get", "post", "put", "delete", "stateless", "resource", "endpoint"],
+    "idealAnswer": "REST (Representational State Transfer) is an architectural style for building APIs. It uses HTTP methods: GET (read data), POST (create), PUT (update), DELETE (remove). REST APIs are stateless meaning each request contains all needed information. Resources are identified by URLs/endpoints.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the difference between SQL and NoSQL databases?",
+    "expectedKeywords": ["sql", "nosql", "relational", "document", "schema", "table", "collection", "join", "flexible", "scale"],
+    "idealAnswer": "SQL databases (MySQL, PostgreSQL) use structured tables with fixed schemas and support JOINs for related data. NoSQL databases (MongoDB, Redis) use flexible schemas with documents, key-value pairs, or graphs. SQL is better for structured data with complex relationships. NoSQL scales horizontally and handles unstructured data well.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is JWT authentication and how does it work?",
+    "expectedKeywords": ["jwt", "token", "header", "payload", "signature", "stateless", "authorization", "bearer", "secret"],
+    "idealAnswer": "JWT (JSON Web Token) is a stateless authentication mechanism. It has three parts: Header (algorithm), Payload (user data and expiry), and Signature (encrypted with a secret key). After login, the server generates a JWT. The client stores it and sends it in the Authorization header as 'Bearer token' with each request. The server validates the signature without needing sessions.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "Explain database indexing. Why is it important?",
+    "expectedKeywords": ["index", "performance", "query", "search", "b-tree", "speed", "lookup", "column", "trade-off", "storage"],
+    "idealAnswer": "Database indexing creates a data structure (usually B-tree) that speeds up data retrieval. Like a book index, it allows the database to find rows without scanning the entire table. Indexes improve SELECT query performance but slow down INSERT/UPDATE operations and use additional storage. Index frequently queried columns for best results.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is middleware in web development? Give examples.",
+    "expectedKeywords": ["middleware", "request", "response", "chain", "authentication", "logging", "filter", "interceptor", "process"],
+    "idealAnswer": "Middleware are functions that process requests between the client and the final route handler. They can modify request/response objects, end the request cycle, or pass control to the next middleware. Examples: authentication (verify JWT), logging (log request details), CORS (handle cross-origin), error handling, rate limiting, body parsing.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain microservices architecture vs monolithic architecture.",
+    "expectedKeywords": ["microservices", "monolithic", "independent", "deploy", "scale", "service", "communication", "api gateway", "database"],
+    "idealAnswer": "Monolithic architecture is a single codebase where all features are tightly coupled. Microservices break the application into small, independent services that communicate via APIs. Microservices allow independent deployment, scaling, and technology choices per service. However, they add complexity in communication, data consistency, and debugging. API Gateway handles routing between services.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "What is caching and how would you implement it in a backend application?",
+    "expectedKeywords": ["cache", "redis", "memory", "performance", "ttl", "invalidation", "key-value", "hit", "miss", "latency"],
+    "idealAnswer": "Caching stores frequently accessed data in fast memory (RAM) to reduce database queries and improve response times. Redis and Memcached are popular caching solutions. Implementation involves: checking cache first (cache hit), fetching from DB on cache miss and storing in cache, setting TTL (time to live) for expiry, and cache invalidation strategies when data changes.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is version control and why is Git important?",
+    "expectedKeywords": ["git", "version control", "commit", "branch", "merge", "repository", "track", "collaborate", "history"],
+    "idealAnswer": "Version control tracks changes to code over time. Git is a distributed version control system that allows: tracking code history through commits, branching for parallel development, merging branches together, collaborating with teams via remote repositories (GitHub). Every developer has a full copy of the repository locally.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the MERN stack? Explain each technology.",
+    "expectedKeywords": ["mongodb", "express", "react", "node", "javascript", "full stack", "frontend", "backend", "database"],
+    "idealAnswer": "MERN is a full-stack JavaScript framework: MongoDB (NoSQL database for storing data as documents), Express.js (backend web framework for Node.js), React.js (frontend library for building UI components), Node.js (JavaScript runtime for server-side code). All four use JavaScript, making it a unified development stack.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is Node.js and how does it differ from browser JavaScript?",
+    "expectedKeywords": ["node", "server", "v8", "runtime", "non-blocking", "event driven", "module", "npm", "backend"],
+    "idealAnswer": "Node.js is a JavaScript runtime built on Chrome's V8 engine that allows running JavaScript on the server. Unlike browser JS, Node.js can access the file system, create servers, and handle networking. It uses non-blocking I/O and event-driven architecture for high performance. npm is its package manager for installing libraries.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "Explain React hooks. What are useState and useEffect?",
+    "expectedKeywords": ["hook", "usestate", "useeffect", "functional component", "state", "side effect", "lifecycle", "render", "dependency"],
+    "idealAnswer": "Hooks let you use state and lifecycle features in functional components. useState returns a state variable and setter function for managing component state. useEffect handles side effects like API calls, subscriptions, and DOM updates. It runs after render and can have a dependency array to control when it re-runs. Empty array means run once on mount.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "How does MongoDB store data? Explain documents and collections.",
+    "expectedKeywords": ["document", "collection", "bson", "json", "schema", "flexible", "objectid", "embedded", "field"],
+    "idealAnswer": "MongoDB stores data as BSON (Binary JSON) documents in collections. A document is like a JSON object with key-value pairs. Collections are groups of documents (like tables in SQL). MongoDB is schema-less meaning documents in the same collection can have different structures. Each document has a unique _id field (ObjectId). Data can be embedded as nested documents or referenced.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is Express.js middleware and how does routing work?",
+    "expectedKeywords": ["express", "middleware", "route", "request", "response", "next", "app.get", "app.post", "router"],
+    "idealAnswer": "Express.js middleware are functions with access to req, res, and next. They can process requests in sequence. Routing maps HTTP methods and URLs to handler functions using app.get(), app.post(), etc. Express Router allows modular routing with router.get(). Middleware can be used globally with app.use() or per-route.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain state management in React. Compare Context API with Redux.",
+    "expectedKeywords": ["state", "context", "redux", "store", "reducer", "action", "dispatch", "provider", "global", "prop drilling"],
+    "idealAnswer": "State management handles shared data across components. Context API is built into React, simple for small-medium apps, uses Provider pattern to avoid prop drilling. Redux is a third-party library with a single store, reducers (pure functions), and actions (state changes dispatched). Redux is better for complex apps with predictable state updates. Context API is simpler but can cause unnecessary re-renders.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "How would you optimize the performance of a MERN application?",
+    "expectedKeywords": ["lazy loading", "memoization", "indexing", "caching", "compression", "pagination", "code splitting", "cdn", "optimize"],
+    "idealAnswer": "Frontend: code splitting and lazy loading components, React.memo for preventing unnecessary re-renders, image optimization, using CDN for static assets. Backend: database indexing, query optimization, response caching with Redis, pagination instead of loading all data, compression middleware. Both: minimize API calls, use debouncing, implement proper error handling.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the difference between props and state in React?",
+    "expectedKeywords": ["props", "state", "parent", "child", "immutable", "mutable", "pass", "component", "data", "update"],
+    "idealAnswer": "Props are read-only data passed from parent to child components. They are immutable and flow one-way (top-down). State is data managed within a component, is mutable, and can be updated using setState or useState. When state changes, the component re-renders. Props come from outside, state is internal to the component.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "EASY",
+    "questionText": "Tell me about yourself and your background.",
+    "expectedKeywords": ["education", "experience", "skill", "project", "passionate", "technology", "learn", "develop"],
+    "idealAnswer": "A good answer includes: educational background, relevant skills and technologies, key projects or experience, passion for technology, and career goals. Keep it concise (2-3 minutes), focus on relevant information, and show enthusiasm.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "EASY",
+    "questionText": "What are your strengths and weaknesses?",
+    "expectedKeywords": ["strength", "weakness", "improve", "learn", "team", "problem solving", "communication", "working on"],
+    "idealAnswer": "Mention genuine strengths relevant to the role (problem solving, teamwork, quick learning, technical skills). For weaknesses, be honest but show self-awareness and improvement efforts. Example: 'I used to struggle with public speaking, but I've been practicing by presenting in team meetings regularly.'",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "EASY",
+    "questionText": "Why do you want to work at this company?",
+    "expectedKeywords": ["company", "culture", "growth", "opportunity", "technology", "team", "values", "mission", "contribute"],
+    "idealAnswer": "Research the company beforehand. Mention specific things: company culture, technology stack, growth opportunities, projects they work on, values alignment. Show genuine interest and explain how you can contribute to their goals.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "MEDIUM",
+    "questionText": "Describe a challenging project you worked on. How did you overcome difficulties?",
+    "expectedKeywords": ["challenge", "problem", "solution", "team", "approach", "result", "learned", "overcome", "deadline"],
+    "idealAnswer": "Use the STAR method: Situation (describe the context), Task (your responsibility), Action (steps you took), Result (outcome). Focus on problem-solving skills, collaboration, and what you learned. Show resilience and adaptability.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "MEDIUM",
+    "questionText": "How do you handle conflict in a team?",
+    "expectedKeywords": ["conflict", "communication", "listen", "understand", "perspective", "resolve", "compromise", "team", "respect"],
+    "idealAnswer": "Listen actively to understand different perspectives, communicate openly and respectfully, focus on the problem not the person, seek common ground and compromise, involve a mediator if needed. Give a specific example showing your conflict resolution skills and positive outcome.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "MEDIUM",
+    "questionText": "Where do you see yourself in 5 years?",
+    "expectedKeywords": ["growth", "career", "skill", "leadership", "technology", "goal", "develop", "contribute", "advance"],
+    "idealAnswer": "Show ambition while being realistic. Mention: skill growth (becoming an expert in your domain), career advancement (team lead, architect), continuous learning (new technologies), and contributing to the organization. Align your goals with the company's growth trajectory.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "HARD",
+    "questionText": "Tell me about a time you failed. What did you learn from it?",
+    "expectedKeywords": ["failure", "lesson", "learn", "improve", "mistake", "growth", "responsibility", "adapt", "outcome"],
+    "idealAnswer": "Be genuine and share a real failure. Use STAR method. Take responsibility (don't blame others), explain what went wrong, describe what you learned, and show how you applied that lesson to prevent similar failures. Demonstrating growth mindset is key.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "HR",
+    "difficulty": "HARD",
+    "questionText": "How do you prioritize tasks when you have multiple deadlines?",
+    "expectedKeywords": ["prioritize", "deadline", "urgent", "important", "plan", "organize", "delegate", "communicate", "time management"],
+    "idealAnswer": "Use the Eisenhower Matrix (urgent vs important). Break tasks into smaller subtasks, estimate time for each, identify dependencies, communicate with stakeholders about realistic timelines, use tools like Trello or Jira for tracking, and be willing to delegate or ask for help when needed.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is a constructor in Java? What are its types?",
+    "expectedKeywords": ["constructor", "initialize", "object", "default", "parameterized", "overloading", "new", "class name"],
+    "idealAnswer": "A constructor is a special method that initializes objects when they are created. It has the same name as the class and no return type. Types: Default constructor (no parameters, created by compiler if none defined), Parameterized constructor (accepts parameters). Constructor overloading allows multiple constructors with different parameter lists.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is the Java Stream API? Give an example of its usage.",
+    "expectedKeywords": ["stream", "filter", "map", "reduce", "collect", "lambda", "functional", "pipeline", "parallel"],
+    "idealAnswer": "Stream API (Java 8+) provides functional-style operations for processing collections. It supports operations like filter (condition), map (transform), reduce (aggregate), collect (gather results), forEach, sorted. Example: list.stream().filter(x -> x > 5).map(x -> x * 2).collect(Collectors.toList()). Streams can be parallelized for performance.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain garbage collection in Java. What are the different garbage collectors?",
+    "expectedKeywords": ["garbage collection", "heap", "gc", "memory", "unreachable", "generation", "young", "old", "g1", "automatic"],
+    "idealAnswer": "Garbage collection automatically frees memory occupied by unreachable objects in the heap. JVM uses generational GC with Young Generation (short-lived objects, minor GC) and Old Generation (long-lived, major GC). Types: Serial GC (single thread), Parallel GC (multiple threads), G1 GC (default, divides heap into regions), ZGC (low latency). Objects are promoted from young to old generation if they survive multiple GC cycles.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is the difference between synchronous and asynchronous JavaScript?",
+    "expectedKeywords": ["synchronous", "asynchronous", "blocking", "non-blocking", "callback", "promise", "async", "await", "concurrent"],
+    "idealAnswer": "Synchronous code executes line by line, blocking subsequent code until completion. Asynchronous code allows non-blocking execution where operations like API calls don't block the main thread. Async is handled via callbacks, Promises (.then/.catch), and async/await syntax. This is crucial for I/O operations, API requests, and timers.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain web performance optimization techniques for frontend.",
+    "expectedKeywords": ["lazy loading", "minification", "compression", "cdn", "caching", "code splitting", "critical css", "image", "bundle"],
+    "idealAnswer": "Key techniques: Code splitting and lazy loading (load code on demand), minification and compression (reduce file sizes via gzip/brotli), CDN for static assets, browser caching with proper headers, critical CSS (inline above-fold styles), image optimization (WebP, lazy loading, responsive images), reducing JavaScript bundle size, tree shaking to remove unused code.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is the difference between authentication and authorization?",
+    "expectedKeywords": ["authentication", "authorization", "identity", "permission", "access", "role", "token", "login", "verify"],
+    "idealAnswer": "Authentication verifies WHO you are (identity) - done through login with credentials, tokens, biometrics. Authorization determines WHAT you can do (permissions) - checked after authentication using roles and permissions. Example: logging in is authentication, accessing admin panel requires admin role authorization.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "BACKEND_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "What is database normalization? Explain the normal forms.",
+    "expectedKeywords": ["normalization", "redundancy", "1nf", "2nf", "3nf", "primary key", "dependency", "atomic", "functional"],
+    "idealAnswer": "Normalization reduces data redundancy and improves integrity. 1NF: atomic values, no repeating groups. 2NF: 1NF + no partial dependencies (every non-key column depends on the entire primary key). 3NF: 2NF + no transitive dependencies (non-key columns don't depend on other non-key columns). Over-normalization can hurt performance; sometimes denormalization is used for read-heavy systems.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "How do you handle API errors in a MERN application?",
+    "expectedKeywords": ["error", "try catch", "status code", "middleware", "response", "handling", "validation", "message", "frontend"],
+    "idealAnswer": "Backend: use try-catch blocks in async handlers, create error middleware, return proper HTTP status codes (400 for bad request, 401 unauthorized, 404 not found, 500 server error) with meaningful messages. Frontend: catch errors in API calls with try-catch or .catch(), display user-friendly error messages, implement loading/error states in components.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "EASY",
+    "questionText": "What is the difference between String, StringBuilder, and StringBuffer?",
+    "expectedKeywords": ["string", "immutable", "stringbuilder", "stringbuffer", "mutable", "synchronized", "thread safe", "performance", "concatenation"],
+    "idealAnswer": "String is immutable - once created, it cannot be changed. Every modification creates a new object. StringBuilder is mutable and not thread-safe, providing better performance for string manipulations. StringBuffer is mutable and thread-safe (synchronized) but slower than StringBuilder. Use StringBuilder in single-threaded scenarios, StringBuffer in multi-threaded.",
+    "maxScore": 10,
+    "timeLimitSeconds": 120
+  },
+  {
+    "roleCategory": "JAVA_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What is the difference between final, finally, and finalize in Java?",
+    "expectedKeywords": ["final", "finally", "finalize", "constant", "block", "garbage collection", "override", "variable", "method", "class"],
+    "idealAnswer": "final is a keyword: final variable = constant (can't reassign), final method = can't override, final class = can't extend. finally is a block in try-catch that always executes for cleanup code (closing resources). finalize() is a method called by garbage collector before destroying an object (deprecated in modern Java, use try-with-resources instead).",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "FRONTEND_DEVELOPER",
+    "difficulty": "MEDIUM",
+    "questionText": "What are JavaScript Promises and how do they work?",
+    "expectedKeywords": ["promise", "resolve", "reject", "then", "catch", "pending", "fulfilled", "rejected", "async", "chain"],
+    "idealAnswer": "A Promise represents a future value from an async operation. It has three states: Pending (initial), Fulfilled (resolved with value), Rejected (failed with error). Use .then() for success, .catch() for errors, .finally() for cleanup. Promises can be chained. Promise.all() waits for multiple promises. async/await is syntactic sugar over promises.",
+    "maxScore": 10,
+    "timeLimitSeconds": 150
+  },
+  {
+    "roleCategory": "MERN_STACK_DEVELOPER",
+    "difficulty": "HARD",
+    "questionText": "Explain the concept of server-side rendering vs client-side rendering.",
+    "expectedKeywords": ["ssr", "csr", "server", "client", "seo", "performance", "initial load", "hydration", "next.js", "rendering"],
+    "idealAnswer": "CSR: Browser downloads minimal HTML + JavaScript bundle, JS renders the page. Fast navigation but slow initial load and poor SEO. SSR: Server renders full HTML for each request, sent to browser. Better initial load and SEO but more server work. Next.js provides SSR and SSG (Static Site Generation) for React. Hydration makes SSR pages interactive on the client.",
+    "maxScore": 10,
+    "timeLimitSeconds": 180
+  }
+]
