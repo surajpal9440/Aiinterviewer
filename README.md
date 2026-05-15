@@ -188,7 +188,7 @@ ML_SERVICE_ENABLED=true
 
 ## 👨‍💻 Author
 
-**Suraj Kumar** — Final Year Project, 2026
+**Suraj Pal** 
 
 ---
 
