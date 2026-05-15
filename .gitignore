@@ -36,8 +36,9 @@ __pycache__/
 venv/
 .venv/
 
-# ML model files (large)
-*.pkl
+# ML - large dataset files (not tracked, download from Mendeley)
+ml-service/Students suspicious behaviors detection dataset_V1.csv
+ml-service/dataset.csv
 
 # Gemini
 .gemini/

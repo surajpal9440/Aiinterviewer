@@ -1,21 +1,24 @@
 """
 app.py — FastAPI server for ML-powered cheating detection.
 
-Loads the trained Random Forest model and serves predictions via REST API.
-Spring Boot backend calls this service for each answer submission.
+Loads the trained model (Random Forest / Gradient Boosting) and serves
+predictions via REST API. The Node.js backend calls this service
+for each answer submission.
+
+Trained on: Mendeley "Students suspicious behaviors detection dataset"
+DOI: 10.17632/39xs8th543.1 (5,500 real records, 11 features)
 
 Endpoints:
   GET  /health   — Health check
   POST /analyze  — Analyze behavior features, return cheating risk score
 
-Run: python app.py
-     → Server starts on http://localhost:5000
+Run: python app.py → http://localhost:5000
 """
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 import joblib
 import numpy as np
 import os
@@ -29,11 +32,10 @@ logger = logging.getLogger("ml-service")
 
 app = FastAPI(
     title="Cheating Detection ML Service",
-    description="Random Forest model for detecting cheating in video call interviews",
-    version="1.0.0"
+    description="ML model trained on Mendeley proctoring dataset (5500 records)",
+    version="2.0.0"
 )
 
-# Allow requests from Spring Boot
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -49,37 +51,42 @@ META_PATH = os.path.join(os.path.dirname(__file__), 'model_meta.pkl')
 
 model = None
 feature_names = None
+model_name = None
 
 @app.on_event("startup")
 def load_model():
-    global model, feature_names
+    global model, feature_names, model_name
     if os.path.exists(MODEL_PATH):
         model = joblib.load(MODEL_PATH)
         meta = joblib.load(META_PATH)
         feature_names = meta['feature_names']
-        logger.info(f"✅ ML Model loaded from {MODEL_PATH}")
-        logger.info(f"   Features: {feature_names}")
+        model_name = meta.get('model_name', 'Unknown')
+        logger.info(f"✅ ML Model loaded: {model_name}")
+        logger.info(f"   Features ({len(feature_names)}): {feature_names}")
     else:
-        logger.error(f"❌ Model file not found: {MODEL_PATH}")
-        logger.error("   Run 'python generate_dataset.py' then 'python train_model.py' first!")
+        logger.error(f"❌ Model not found: {MODEL_PATH}")
+        logger.error("   Run 'python train_model.py' first!")
 
 
 # ──────────────────────────────────────
 # Request/Response Models
 # ──────────────────────────────────────
 class BehaviorData(BaseModel):
-    """Behavior features collected from the frontend per question."""
-    gaze_offset_avg: float = 0.0
-    gaze_offset_std: float = 0.0
-    gaze_away_pct: float = 0.0
-    face_absent_pct: float = 0.0
-    multi_face_count: int = 0
-    head_pose_variance: float = 0.0
-    answer_delay_sec: float = 0.0
-    eye_movement_speed: float = 0.0
+    """Per-frame behavior features from the frontend webcam.
+    These match the 11 features the model was trained on."""
+    face_present: int = 1
+    no_of_face: int = 1
+    face_conf: float = 0.0
+    head_pitch: float = 0.0
+    head_yaw: float = 0.0
+    head_roll: float = 0.0
+    gaze_on_script: int = 1
+    head_pose_enc: int = 0
+    gaze_dir_enc: int = 0
+    pupil_dist_norm: float = 0.0
+    face_area_ratio: float = 0.0
 
 class AnalysisResponse(BaseModel):
-    """Response with cheating risk analysis."""
     risk_score: float
     is_cheating: bool
     confidence: float
@@ -92,86 +99,76 @@ class AnalysisResponse(BaseModel):
 # ──────────────────────────────────────
 @app.get("/health")
 def health_check():
-    """Health check endpoint."""
     return {
         "status": "healthy",
         "model_loaded": model is not None,
-        "model_type": "RandomForestClassifier",
+        "model_type": model_name,
+        "dataset": "Mendeley DOI:10.17632/39xs8th543.1",
         "features": feature_names
     }
 
 
 @app.post("/analyze", response_model=AnalysisResponse)
 def analyze_behavior(data: BehaviorData):
-    """
-    Analyze candidate behavior and return cheating risk score.
-    
-    The ML model (Random Forest) predicts the probability of cheating
-    based on 8 webcam-derived behavioral features.
-    """
+    """Analyze candidate behavior and return cheating risk score."""
     if model is None:
         return AnalysisResponse(
-            risk_score=0.0,
-            is_cheating=False,
-            confidence=0.0,
+            risk_score=0.0, is_cheating=False, confidence=0.0,
             flags=["MODEL_NOT_LOADED"],
-            details="ML model is not loaded. Run train_model.py first."
+            details="ML model not loaded. Run train_model.py first."
         )
 
-    # Build feature array in correct order
+    # Build feature array in the trained order
     features = np.array([[
-        data.gaze_offset_avg,
-        data.gaze_offset_std,
-        data.gaze_away_pct,
-        data.face_absent_pct,
-        data.multi_face_count,
-        data.head_pose_variance,
-        data.answer_delay_sec,
-        data.eye_movement_speed
+        data.face_present,
+        data.no_of_face,
+        data.face_conf,
+        data.head_pitch,
+        data.head_yaw,
+        data.head_roll,
+        data.gaze_on_script,
+        data.head_pose_enc,
+        data.gaze_dir_enc,
+        data.pupil_dist_norm,
+        data.face_area_ratio,
     ]])
 
-    # Predict probability
+    # Predict
     probabilities = model.predict_proba(features)[0]
     honest_prob = probabilities[0]
     cheating_prob = probabilities[1]
     risk_score = round(cheating_prob * 100, 1)
-
-    # Determine if cheating (threshold: 60%)
     is_cheating = risk_score > 60
-
-    # Confidence level
     confidence = round(max(honest_prob, cheating_prob) * 100, 1)
 
-    # Generate flags based on individual features
+    # Generate flags
     flags = []
-    if data.gaze_away_pct > 35:
-        flags.append("LOOKING_AWAY_FREQUENTLY")
-    if data.face_absent_pct > 20:
+    if data.face_present == 0:
         flags.append("FACE_NOT_VISIBLE")
-    if data.multi_face_count > 2:
+    if data.no_of_face > 1:
         flags.append("MULTIPLE_PEOPLE_DETECTED")
-    if data.eye_movement_speed > 0.10:
-        flags.append("READING_PATTERN_DETECTED")
-    if data.gaze_offset_avg > 0.20 and data.gaze_offset_std < 0.03:
-        flags.append("STARING_AT_FIXED_POINT")
-    if data.answer_delay_sec > 15:
-        flags.append("UNUSUALLY_LONG_DELAY")
-    if data.head_pose_variance > 0.12:
-        flags.append("EXCESSIVE_HEAD_MOVEMENT")
+    if data.gaze_on_script == 0:
+        flags.append("NOT_LOOKING_AT_SCREEN")
+    if abs(data.head_yaw) > 0.03:
+        flags.append("HEAD_TURNED_SIDEWAYS")
+    if abs(data.head_pitch) > 0.03:
+        flags.append("HEAD_TILTED_UP_OR_DOWN")
+    if data.face_conf > 0 and data.face_conf < 70:
+        flags.append("LOW_FACE_CONFIDENCE")
 
-    # Generate details string
+    # Risk description
     if risk_score < 20:
         details = "Behavior appears normal. No suspicious activity detected."
     elif risk_score < 40:
         details = "Minor anomalies detected but within acceptable range."
     elif risk_score < 60:
-        details = "Moderate risk. Some suspicious patterns observed — monitor closely."
+        details = "Moderate risk. Some suspicious patterns observed."
     elif risk_score < 80:
-        details = "High risk of cheating. Significant behavioral anomalies detected."
+        details = "High risk. Significant behavioral anomalies detected."
     else:
-        details = "Very high risk. Strong indicators of external assistance or reference material usage."
+        details = "Very high risk. Strong indicators of external assistance."
 
-    logger.info(f"🔍 Analysis: risk={risk_score}% | cheating={is_cheating} | flags={flags}")
+    logger.info(f"🔍 risk={risk_score}% | cheating={is_cheating} | flags={flags}")
 
     return AnalysisResponse(
         risk_score=risk_score,
@@ -188,7 +185,8 @@ def analyze_behavior(data: BehaviorData):
 if __name__ == "__main__":
     import uvicorn
     print("=" * 50)
-    print("  🤖 Cheating Detection ML Service")
+    print("  🤖 Cheating Detection ML Service v2.0")
+    print("  Dataset: Mendeley (5,500 real records)")
     print("  Starting on http://localhost:5000")
     print("=" * 50)
     uvicorn.run(app, host="0.0.0.0", port=5000)
