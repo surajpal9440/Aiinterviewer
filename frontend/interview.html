@@ -86,6 +86,24 @@
                 </div>
                 <div id="feedbackMessage" style="margin-bottom: 12px;"></div>
                 <div class="keywords-section" id="keywordsSection"></div>
+                <!-- AI Feedback Section -->
+                <div class="ai-feedback-section hidden" id="aiFeedbackSection">
+                    <div class="ai-feedback-header">
+                        <span class="ai-badge">✨ AI Analysis</span>
+                    </div>
+                    <p class="ai-feedback-text" id="aiFeedbackText"></p>
+                </div>
+                <!-- ML Cheating Risk Section -->
+                <div class="cheating-risk-section hidden" id="cheatingRiskSection">
+                    <div class="cheating-risk-header">
+                        <span class="ml-badge">🔍 ML Behavior Analysis</span>
+                        <span class="cheating-risk-text" id="cheatingRiskText"></span>
+                    </div>
+                    <div class="cheating-risk-bar-container">
+                        <div class="cheating-risk-bar" id="cheatingRiskBar"></div>
+                    </div>
+                    <div id="cheatingFlags" style="margin-top:8px;"></div>
+                </div>
                 <div style="margin-top: 16px;">
                     <button class="btn btn-success" id="nextBtn" onclick="loadNextQuestion()">
                         Next Question →

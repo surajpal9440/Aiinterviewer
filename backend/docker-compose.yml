@@ -11,15 +11,16 @@ services:
 
   app:
     build:
-      context: ..
-      dockerfile: backend/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: interview-app
     ports:
       - "8080:8080"
     depends_on:
       - mongodb
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/ai_interview_db
+      - MONGODB_URI=mongodb://mongodb:27017/ai_interview_db
+      - PORT=8080
     restart: unless-stopped
 
 volumes:

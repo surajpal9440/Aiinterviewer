@@ -77,6 +77,9 @@ function displayQuestion(q) {
     // Start timer
     startTimer(q.timeLimitSeconds || 120);
 
+    // ML: Reset behavior tracking for this question
+    if (typeof resetBehaviorData === 'function') resetBehaviorData();
+
     // Auto-speak the question
     setTimeout(() => speakText(q.questionText), 500);
 }
@@ -145,13 +148,17 @@ async function submitAnswer() {
     // Disable submit button
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;display:inline-block;"></div> Analyzing...';
+    submitBtn.innerHTML = '<div class="spinner" style="width:18px;height:18px;border-width:2px;display:inline-block;"></div> 🤖 AI Analyzing...';
 
     try {
+        // ML: Collect behavior profile from proctoring
+        const behaviorData = typeof getBehaviorProfile === 'function' ? getBehaviorProfile() : {};
+
         const result = await apiPost(`/api/interview/${SESSION_ID}/submit`, {
             questionId: currentQuestion.id,
             answerText: answerText,
-            timeTakenSeconds: timeTaken
+            timeTakenSeconds: timeTaken,
+            behaviorData: behaviorData
         });
 
         // Show feedback
@@ -175,7 +182,6 @@ function showFeedback(result) {
 
     // Score
     document.getElementById('feedbackScore').textContent = `${result.score}/${result.maxScore}`;
-    document.getElementById('feedbackText').textContent = result.feedback;
 
     // Color based on score
     const scoreEl = document.getElementById('feedbackScore');
@@ -183,6 +189,18 @@ function showFeedback(result) {
     if (pct >= 70) scoreEl.style.color = 'var(--accent-cyan)';
     else if (pct >= 40) scoreEl.style.color = 'var(--accent-yellow)';
     else scoreEl.style.color = 'var(--accent-pink)';
+
+    // Feedback text (short summary)
+    const feedbackTextEl = document.getElementById('feedbackText');
+    if (result.aiFeedback) {
+        // AI is available — show score label in the top area
+        if (pct >= 80) feedbackTextEl.textContent = '🎯 Excellent!';
+        else if (pct >= 60) feedbackTextEl.textContent = '👍 Good effort!';
+        else if (pct >= 40) feedbackTextEl.textContent = '📝 Needs improvement';
+        else feedbackTextEl.textContent = '📚 Review this topic';
+    } else {
+        feedbackTextEl.textContent = result.feedback;
+    }
 
     // Keywords
     const keywordsSection = document.getElementById('keywordsSection');
@@ -204,6 +222,57 @@ function showFeedback(result) {
             missedDiv.innerHTML += `<span class="keyword-tag missed">${k}</span> `;
         });
         keywordsSection.appendChild(missedDiv);
+    }
+
+    // AI Feedback section
+    const aiFeedbackSection = document.getElementById('aiFeedbackSection');
+    const aiFeedbackText = document.getElementById('aiFeedbackText');
+
+    if (result.aiFeedback) {
+        aiFeedbackSection.classList.remove('hidden');
+        aiFeedbackText.textContent = result.aiFeedback;
+    } else {
+        aiFeedbackSection.classList.add('hidden');
+    }
+
+    // ML Cheating Risk indicator
+    const cheatingSection = document.getElementById('cheatingRiskSection');
+    if (cheatingSection && result.cheatingRiskScore !== undefined) {
+        const risk = result.cheatingRiskScore;
+        if (risk > 0) {
+            cheatingSection.classList.remove('hidden');
+            const riskText = document.getElementById('cheatingRiskText');
+            const riskBar = document.getElementById('cheatingRiskBar');
+
+            if (risk < 30) {
+                riskText.textContent = `Low Risk (${risk}%)`;
+                riskText.style.color = 'var(--accent-cyan)';
+                riskBar.style.width = risk + '%';
+                riskBar.style.background = 'var(--gradient-success)';
+            } else if (risk < 60) {
+                riskText.textContent = `Medium Risk (${risk}%)`;
+                riskText.style.color = 'var(--accent-yellow)';
+                riskBar.style.width = risk + '%';
+                riskBar.style.background = 'var(--gradient-warm)';
+            } else {
+                riskText.textContent = `High Risk (${risk}%)`;
+                riskText.style.color = 'var(--accent-pink)';
+                riskBar.style.width = risk + '%';
+                riskBar.style.background = 'var(--gradient-danger)';
+            }
+
+            // Show flags
+            const flagsEl = document.getElementById('cheatingFlags');
+            if (flagsEl && result.cheatingFlags && result.cheatingFlags.length > 0) {
+                flagsEl.innerHTML = result.cheatingFlags.map(f =>
+                    `<span class="keyword-tag missed">${f.replace(/_/g, ' ')}</span>`
+                ).join(' ');
+            } else if (flagsEl) {
+                flagsEl.innerHTML = '';
+            }
+        } else {
+            cheatingSection.classList.add('hidden');
+        }
     }
 
     // Next button
